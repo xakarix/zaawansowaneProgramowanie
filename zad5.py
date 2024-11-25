@@ -3,7 +3,9 @@
 # parametru pierwszego zawiera taką wartość jaką przekazano w parametrze
 # drugim.
 
-def contain( array: list, a: int) -> bool:
+
+def contain(array: list, a: int) -> bool:
     return a in array
-    
-print (contain([1,2,3], 3))
+
+
+print(contain([1, 2, 3], 3))

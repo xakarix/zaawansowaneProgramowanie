@@ -4,14 +4,14 @@
 # zmiennej, a następnie wykorzystując warunek logiczny wyświetlić prawidłowy
 # tekst "Liczba parzysta" / "Liczba nieparzysta"
 
-def is_even( a: int ) -> bool:
-    if a%2 == 0:
+
+def is_even(a: int) -> bool:
+    if a % 2 == 0:
         return True
-    
+
+
 x = 10
-if is_Even(x):
-    print('is Even')
+if is_even(x):
+    print("is Even")
 else:
-    print('is Odd')
-
-
+    print("is Odd")
