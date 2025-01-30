@@ -1,0 +1,178 @@
+/* Globalne ustawienia */
+body {
+    font-family: 'Lexend', sans-serif;
+    background-color: #f1f1f1;
+    margin: 0;
+    padding: 16px;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+}
+
+/* Nagłówek */
+h1 {
+    color: #7968FF;
+    font-size: 3rem;
+    text-align: center;
+}
+
+/* Formularz */
+form {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 16px;
+    width: 512px;
+    flex-wrap: wrap;
+    background: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(15.3px);
+    -webkit-backdrop-filter: blur(15.3px);
+    border: 1px solid rgba(255, 255, 255, 0.61);
+    flex-direction: column; /* Ustawienie w kolumnach */
+    gap: 16px; /* Odstęp między elementami formularza */
+}
+
+label {
+    display: block;
+    font-size: 1.1rem;
+    color: #555;
+}
+
+.button_container{
+    width: 100%;
+    display: flex; 
+    justify-content: flex-end; 
+}
+
+button {
+
+    margin-left: auto;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #7968FF;
+    color: #f1f1f1;
+    border: none;
+    border-radius: 24px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #5839B5;
+}
+
+
+
+.file-upload {
+    margin-top: 16px;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    background-color: #f0f0f0;
+    border: 1px solid rgba(255, 255, 255, 0.61);
+    border-radius: 16px;
+    transition: background-color 0.3s ease;
+  }
+
+  /* Ukrycie domyślnego elementu input */
+  .custom-file-input {
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 80px;
+    cursor: pointer;
+  }
+
+  /* Etykieta jako wizualny przycisk */
+  .custom-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80px;
+    width: 100%;
+    font-size: 16px;
+    color: #c3c3c3;
+    cursor: pointer;
+    
+  }
+
+
+  /* Podgląd przesłanych plików */
+  .preview-container {
+    margin-left: 8px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .preview-container img {
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #7968FF;
+  }
+
+  .preview-container .extra-count {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+
+    color: #7968FF;
+    border-radius: 8px;
+    border: 1px solid #7968FF;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+ 
+
+  .divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 16px 0;
+}
+
+.divider hr {
+    flex-grow: 1;
+    border: none;
+    border-top: 1px solid #c3c3c3;
+    margin: 0;
+}
+
+.divider span {
+    margin: 0 8px;
+    font-weight: regular;
+    color: #c3c3c3;
+}
+
+.content-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  width: 100%;
+  max-width: 1024px;
+}
+
+.queue-container{
+  background-color: #fff;
+    padding: 16px;
+    width: 512px;
+    border-radius: 16px;
+    flex-wrap: wrap;
+    background: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(15.3px);
+    -webkit-backdrop-filter: blur(15.3px);
+    border: 1px solid rgba(255, 255, 255, 0.61);
+    flex-direction: column; 
+    gap: 16px; 
+}
+

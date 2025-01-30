@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Human Detection</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+<div class="main-container">
+        <h1>Person Detection</h1>
+    <div class="content-container">
+        <div class="forms-container">
+            <form id="fetch-path-form">
+                <label for="image-path">Enter path:</label>
+                <input type="text" id="image-path" name="image-path" placeholder="np. /static/obraz.jpg" required>
+                <div class="button_container">
+                    <button type="button" onclick="fetchPath()">UPLOAD</button>
+                </div>
+            </form>
+
+            <div class="divider">
+                <hr>
+                <span>OR</span>
+                <hr>
+            </div>
+
+            <form id="fetch-image-form">
+                <label for="image-url">Enter image URL:</label>
+                <input type="url" id="image-url" name="image-url" placeholder="https://example.com/image.jpg" required>
+                <div class="button_container">
+                    <button type="button" onclick="fetchImage()">UPLOAD</button>
+                </div>
+            </form>
+
+            <div class="divider">
+                <hr>
+                <span>OR</span>
+                <hr>
+            </div>
+            
+            <form id="upload-form" enctype="multipart/form-data">
+                <label for="images">Choose images:</label>
+                <div class="file-upload">
+                    <input type="file" id="images" name="images" accept="image/*" multiple class="custom-file-input" onchange="handleFiles(this.files)">
+                    <label for="images" class="custom-label">CHOOSE</label>
+                <div id="preview-container" class="preview-container"></div>
+                </div>
+                <div class="button_container">
+                    <button type="submit">UPLOAD</button>
+                </div>
+            </form>
+        </div>
+        
+    </div>
+
+</div>
+
+
+
+<script>
+   // Metoda do GET: Fetch Path
+async function fetchPath() {
+    const pathInput = document.getElementById('image-path');
+    const path = pathInput.value;
+
+    if (!path) {
+        alert("Proszę wprowadzić poprawną ścieżkę.");
+        return;
+    }
+
+    try {
+        const response = await fetch(`/fetch-path?image_path=${encodeURIComponent(path)}`);
+        const data = await response.json();
+
+        if (response.ok) {
+            alert("Obraz przesłany i zadanie dodane do kolejki!");
+            console.log("Odpowiedź serwera:", data);
+        } else {
+            alert(`Błąd: ${data.error}`);
+        }
+    } catch (error) {
+        alert("Wystąpił problem z przesłaniem ścieżki.");
+        console.error("Błąd zapytania:", error);
+    }
+}
+
+// Metoda do GET: Fetch Image URL
+async function fetchImage() {
+    const urlInput = document.getElementById('image-url');
+    const url = urlInput.value;
+
+    if (!url) {
+        alert("Proszę wprowadzić poprawny URL.");
+        return;
+    }
+
+    try {
+        const response = await fetch(`/fetch-url?url=${encodeURIComponent(url)}`);
+        if (response.ok) {
+            alert("URL przetworzony pomyślnie!");
+        } else {
+            alert("Błąd przetwarzania URL.");
+        }
+    } catch (error) {
+        alert("Wystąpił problem z przetwarzaniem zapytania.");
+        console.error("Błąd zapytania:", error);
+    }
+}
+
+    document.getElementById('upload-form').addEventListener('submit', async function (event) {
+    event.preventDefault(); 
+
+    const formData = new FormData(this);
+
+    try {
+        const response = await fetch('/fetch_multiple', {
+            method: 'POST',
+            body: formData,
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+            alert("Pliki przesłane pomyślnie!");
+            console.log("Odpowiedź serwera:", data);
+        } else {
+            alert(`Błąd: ${data.error}`);
+        }
+    } catch (error) {
+        alert("Wystąpił problem z przesyłaniem plików.");
+    }
+});
+
+    function handleFiles(files) {
+        const previewContainer = document.getElementById('preview-container');
+        previewContainer.innerHTML = ''; 
+    
+        const maxPreview = 5; 
+        const fileArray = Array.from(files);
+    
+        let loadedImages = 0;
+        let extraCountDisplayed = false; 
+        
+        // Najpierw dodajemy obrazy do podglądu
+        fileArray.slice(0, maxPreview).forEach(file => {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                previewContainer.appendChild(img);
+                loadedImages++;
+    
+                if (loadedImages === Math.min(maxPreview, fileArray.length)) {
+                    addExtraCount(fileArray, maxPreview, previewContainer);
+                }
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+    
+    function addExtraCount(fileArray, maxPreview, previewContainer) {
+        if (fileArray.length > maxPreview) {
+            const extraCount = document.createElement('div');
+            extraCount.className = 'extra-count';
+            extraCount.textContent = `+${fileArray.length - maxPreview}`;
+            previewContainer.appendChild(extraCount); 
+        }
+    }
+
+    document.getElementById('upload-form').addEventListener('submit', async function (event) {
+        event.preventDefault(); 
+        const formData = new FormData(this);
+
+        try {
+            await fetch('/detect', {
+                method: 'POST',
+                body: formData,
+            });
+        } catch (error) {
+            alert("Wystąpił błąd podczas przesyłania danych.");
+        }
+    });
+
+
+
+
+
+</script>
+</body>
+</html>

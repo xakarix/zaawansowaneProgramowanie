@@ -1,2 +1,4 @@
-.venv
+venv
 setup.cfg
+tasks.db
+__pycache__
